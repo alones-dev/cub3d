@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdaumont <kdaumont@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cornguye <cornguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:40:03 by kdaumont          #+#    #+#             */
-/*   Updated: 2024/04/16 17:06:24 by kdaumont         ###   ########.fr       */
+/*   Updated: 2024/04/17 10:06:03 by cornguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,18 @@
 # define CUB3D_H
 
 # include "libft.h"
+# include "../mlx/mlx.h"
 # include <stdio.h>
+
+typedef struct s_print_window
+{
+	void	*mlx;
+	void	*win;
+	void	*img;
+	char	*addr;
+    int     taille_x;
+    int     taille_y;
+}	t_print_window;
 
 /* utils.c */
 void	error_msg(char *str);
