@@ -6,7 +6,7 @@
 /*   By: kdaumont <kdaumont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 10:26:39 by cornguye          #+#    #+#             */
-/*   Updated: 2024/04/17 15:01:17 by kdaumont         ###   ########.fr       */
+/*   Updated: 2024/04/18 22:54:34 by kdaumont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,46 @@ int	is_cub_file(char *str, char *ext)
 		j++;
 	}
 	return (1);
+}
+
+/* Check if the character is in the set
+@param c -> character to check
+@param set -> set of characters
+@return :
+	1 = character is in the set
+	0 = character is not in the set
+*/
+int is_in_set(char c, char *set)
+{
+	int i;
+
+	i = 0;
+	while (set[i])
+	{
+		if (c == set[i])
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+/* Free all values in map structure
+@param map -> t_map struct pointer
+*/
+void	free_struct(t_map *map)
+{
+	if (map->map)
+		free_map(map);
+	if (map->no)
+		free(map->no);
+	if (map->so)
+		free(map->so);
+	if (map->we)
+		free(map->we);
+	if (map->ea)
+		free(map->ea);
+	if (map->f)
+		free(map->f);
+	if (map->c)
+		free(map->c);
 }

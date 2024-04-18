@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kdaumont <kdaumont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/08 09:17:18 by cornguye          #+#    #+#             */
-/*   Updated: 2024/04/18 22:54:12 by kdaumont         ###   ########.fr       */
+/*   Created: 2024/04/18 22:51:58 by kdaumont          #+#    #+#             */
+/*   Updated: 2024/04/18 22:52:47 by kdaumont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	main(int ac, char **av)
+/* Free all line in map
+@param map -> t_map struct pointer
+*/
+void	free_map(t_map *map)
 {
-	t_map	map;
-	
-	if (ac != 2)
-		return (error_msg("Usage : ./cub3D scene.cub"), 1);
-	if (!is_cub_file(av[1], ".cub"))
-		return (error_msg("Invalid file extension (.cub needed)"), 1);
-	if (!init_map(&map, av[1]))
-		return (free_struct(&map), 1);
-	return (0);
+    int	i;
+
+    i = -1;
+    if (map->map)
+    {
+        while (map->map[++i])
+            free(map->map[i]);
+        free(map->map);
+    }
 }

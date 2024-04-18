@@ -6,32 +6,88 @@
 /*   By: kdaumont <kdaumont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:37:16 by kdaumont          #+#    #+#             */
-/*   Updated: 2024/04/17 16:42:30 by kdaumont         ###   ########.fr       */
+/*   Updated: 2024/04/18 22:58:26 by kdaumont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 /* TODO:
- * Check if the 6 infos (maps textures & colors) are ok
+ * Check if the 6 infos (maps textures & colors) are ok   OK
  * Check if there is a map
  * Check if the map is the last element
- * Put the infos in the structure
+ * Put the infos in the structure  OK
+ * Check if the infos are good
  * Allocate the map
  * Check if the map is closed
  * Check if the map get the right amount of elements (1 player -> N, S, E or W)
  * Check if the player is not stuck around walls
  */
 
-/* Get and set the size of the file contains the infos in the structure,
-	and allocate file array
+/* Put the differents informations in the structure
 @param map -> t_map struct pointer
-@param file -> scene file .cub
-@return
-	1 -> success
-	0 -> error
+@param str -> line to parse
+@param state -> state of the parsing
 */
-int	set_map_size(t_map *map, char *file)
+void	put_struct(t_map *map, char *str, char state)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && (str[i] == ' ' || is_in_set(str[i], "NOSWEAFC") == 1))
+		i++;
+	if (state == 'N')
+		map->no = ft_strdup(str + i);
+	if (state == 'S')
+		map->so = ft_strdup(str + i);
+	if (state == 'W')
+		map->we = ft_strdup(str + i);
+	if (state == 'E')
+		map->ea = ft_strdup(str + i);
+	if (state == 'F')
+		map->f = ft_strdup(str + i);
+	if (state == 'C')
+		map->c = ft_strdup(str + i);
+}
+
+/* Parse the informations in the file
+@param map -> t_map struct pointer
+@param str -> line to parse
+@return :
+	1 = is information line
+	0 = not information line
+*/
+int	parse_info(t_map *map, char *str)
+{
+	int	i;
+
+	(void)map;
+	i = 0;
+	while (str[i] && str[i] == ' ')
+		i++;
+	if (ft_strcmpv2(str + i, "N", 1) == 0 || ft_strcmpv2(str + i, "NO", 2) == 0)
+		return (put_struct(map, str + i, 'N'), 1);
+	if (ft_strcmpv2(str + i, "S", 1) == 0 || ft_strcmpv2(str + i, "SO", 2) == 0)
+		return (put_struct(map, str + i, 'S'), 1);
+	if (ft_strcmpv2(str + i, "W", 1) == 0 || ft_strcmpv2(str + i, "WE", 2) == 0)
+		return (put_struct(map, str + i, 'W'), 1);
+	if (ft_strcmpv2(str + i, "E", 1) == 0 || ft_strcmpv2(str + i, "EA", 2) == 0)
+		return (put_struct(map, str + i, 'E'), 1);
+	if (ft_strcmpv2(str + i, "F", 1) == 0)
+		return (put_struct(map, str + i, 'F'), 1);
+	if (ft_strcmpv2(str + i, "C", 1) == 0)
+		return (put_struct(map, str + i, 'C'), 1);
+	return (0);
+}
+
+/* Parse the file and check if there is the 6 required informations
+@param map -> t_map struct pointer
+@param file -> file to parse
+@return :
+	1 = informations are ok
+	0 = informations are not ok
+*/
+int	parse_file(t_map *map, char *file)
 {
 	char	*line;
 	int		fd;
@@ -42,91 +98,27 @@ int	set_map_size(t_map *map, char *file)
 	if (fd < 0)
 		return (0);
 	line = get_next_line(fd);
-	if (!line)
-		return (0);
 	while (line != NULL)
 	{
-		count++;
-		free(line);
-		line = get_next_line(fd);
-		if (!line)
-			break ;
-	}
-	map->size = count;
-	return (free(line), close(fd), 1);
-}
-
-/* Put the file in the structure
-@param map -> t_map struct pointer
-@param file -> scene file .cub
-*/
-int	fill_file(t_map *map, char *file)
-{
-	int		i;
-	char	*line;
-	int		fd;
-
-	map->file = ft_calloc(sizeof(char *), map->size + 1);
-	if (!map->file)
-		return (free(map->file), 0);
-	fd = open(file, O_RDONLY);
-	if (fd < 0)
-		return (0);
-	i = -1;
-	line = get_next_line(fd);
-	if (!line)
-		return (0);
-	while (++i < map->size)
-	{
-		map->file[i] = line;
-		free(line);
-		line = get_next_line(fd);
-		if (!line)
-			break ;
-	}
-	return (free(line), close(fd), 1);
-}
-
-int	parse_info(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] == ' ')
-		i++;
-	if (ft_strcmpv2(str + i, "N", 1) == 0 || ft_strcmpv2(str + i, "NO", 2) == 0)
-		return (1);
-	if (ft_strcmpv2(str + i, "S", 1) == 0 || ft_strcmpv2(str + i, "SO", 2) == 0)
-		return (1);
-	if (ft_strcmpv2(str + i, "W", 1) == 0 || ft_strcmpv2(str + i, "WE", 2) == 0)
-		return (1);
-	if (ft_strcmpv2(str + i, "E", 1) == 0 || ft_strcmpv2(str + i, "EA", 2) == 0)
-		return (1);
-	if (ft_strcmpv2(str + i, "F", 1) == 0)
-		return (1);
-	if (ft_strcmpv2(str + i, "C", 1) == 0)
-		return (1);
-	return (0);
-}
-
-int	check_infos(t_map *map)
-{
-	int	count;
-	int	i;
-
-	i = -1;
-	count = 0;
-	while (map->file[++i])
-	{
-		if (parse_info(map->file[i]))
+		if (parse_info(map, line) == 1)
 			count++;
+		free(line);
+		line = get_next_line(fd);
+		if (!line)
+			break ;
 	}
-	printf("count = %d\n", count);
 	if (count != 6)
-		return (0);
-	return (1);
+		return (free(line), close(fd), 0);
+	return (free(line), close(fd), 1);
 }
 
+/* Initialize the map structure and parse the file
+@param map -> t_map struct pointer
+@param file -> file to parse
+@return :
+	1 = map is initialized
+	0 = map is not initialized
+*/
 int	init_map(t_map *map, char *file)
 {
 	map->map = NULL;
@@ -136,10 +128,8 @@ int	init_map(t_map *map, char *file)
 	map->ea = NULL;
 	map->f = NULL;
 	map->c = NULL;
-	if (!set_map_size(map, file))
-		return (0);
-	if (!fill_file(map, file))
-		return (0);
-	check_infos(map);
+	if (!parse_file(map, file))
+		return (error_msg("Missing informations"), 0);
+	printf("%s", map->no);
 	return (1);
 }
