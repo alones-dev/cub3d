@@ -48,7 +48,9 @@ endef
 LIB 		:= $(strip $(LIB))
 
 define SRC :=
+	check_map.c
 	main.c
+	map.c
 	utils.c
 	parsing.c
 endef
