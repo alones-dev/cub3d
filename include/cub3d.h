@@ -6,7 +6,7 @@
 /*   By: kdaumont <kdaumont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:40:03 by kdaumont          #+#    #+#             */
-/*   Updated: 2024/04/19 11:02:52 by kdaumont         ###   ########.fr       */
+/*   Updated: 2024/04/19 15:04:15 by kdaumont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,8 @@ int			init_map(t_map *map, char *file);
 /* map.c */
 void		free_map(t_map *map);
 int			alloc_map(t_map *map, char *file);
+
+/* check_map.c */
+int			check_elements(t_map *map);
 
 #endif
