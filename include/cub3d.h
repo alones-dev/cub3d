@@ -6,7 +6,7 @@
 /*   By: cornguye <cornguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:40:03 by kdaumont          #+#    #+#             */
-/*   Updated: 2024/04/17 10:06:03 by cornguye         ###   ########.fr       */
+/*   Updated: 2024/04/19 12:17:11 by cornguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,37 @@
 # include "libft.h"
 # include "../mlx/mlx.h"
 # include <stdio.h>
+# include <math.h>
 
-typedef struct s_print_window
+typedef struct t_window
 {
-	void	*mlx;
-	void	*win;
-	void	*img;
-	char	*addr;
-    int     taille_x;
-    int     taille_y;
-}	t_print_window;
+	void			*mlx;
+	void			*win;
+	void			*img;
+	char			*addr;
+	int				bits_per_pixel;
+	int				line_length;
+	int				endian;			
+	int				taille_x;
+	int				taille_y;
+	int				size_screen_x;
+	int				size_screen_y;
+	char			**map;
+	struct s_player	*data_player;
+}	t_window;
+
+typedef struct s_player
+{
+	double	posx;
+	double	posy;
+	double	dirx;
+	double	diry;
+	double	planex;
+	double	planey;
+	double	speed;
+	double	rot_speed;
+	char	start_dir;
+}	t_player;
 
 /* utils.c */
 void	error_msg(char *str);
