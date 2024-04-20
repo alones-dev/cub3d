@@ -6,7 +6,7 @@
 /*   By: cornguye <cornguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 09:17:18 by cornguye          #+#    #+#             */
-/*   Updated: 2024/04/20 15:01:11 by cornguye         ###   ########.fr       */
+/*   Updated: 2024/04/20 15:29:29 by cornguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,24 +31,18 @@ void	init_map(t_window *data_window)
 	data_window->map[13] = "11110111 1110101 101111010001    ";
 	data_window->map[14] = "11111111 1111111 111111111111    ";
 	data_window->map[15] = NULL;
-
-	// data_window->map = malloc(sizeof(char *) * 6);
-	// data_window->map[0] = "11111111";
-	// data_window->map[1] = "10000001";
-	// data_window->map[2] = "10000001";
-	// data_window->map[3] = "11000001";
-	// data_window->map[4] = "11111111";
-	// data_window->map[5] = NULL;
 	
-	data_window->w_map = 5;
-	data_window->h_map = 10;
+	data_window->w_map = 32;
+	data_window->h_map = 16;
 	data_window->size_case = 30;
+	data_window->player_start_x = 10;
+	data_window->player_start_y = 10;
 }
 
 void	init_player(t_window *data_window)
 {
-	data_window->data_player->posx = 11;
-	data_window->data_player->posy = 11;
+	data_window->data_player->posx = data_window->player_start_x * data_window->size_case + data_window->size_case / 2;
+	data_window->data_player->posy = data_window->player_start_y * data_window->size_case + data_window->size_case / 2;
 	data_window->data_player->fov_rad = (60 * M_PI) / 180;
 	data_window->data_player->angle = M_PI;
 	data_window->data_player->player_speed = 3;
@@ -195,10 +189,10 @@ void	draw_floor_ceiling(t_window *data, int ray, int t_pix, int b_pix)
 	int  i;
 
 	i = b_pix;
-	while (i < data->taille_y) // sol
+	while (i < data->taille_y)
 		my_mlx_pixel_put(data, ray, i++, 0x007fd75c);
 	i = 0;
-	while (i < t_pix) // ciel
+	while (i < t_pix)
 		my_mlx_pixel_put(data, ray, i++, 0x00007bff);
 }
 
@@ -302,12 +296,8 @@ int	main(int ac, char **av)
 	printf("File is valid -> %s\n", av[1]);
 
 	init_all(&data_window);
-	printf("Initial position player X:%d Y:%d\n", data_window.data_player->posx, data_window.data_player->posy);
-	if (data_window.map[(int)data_window.data_player->posx][(int)data_window.data_player->posy] != '0')
-	{
-		printf("ERREUR %c\n", data_window.map[(int)data_window.data_player->posx][(int)data_window.data_player->posy]);
+	if (data_window.map[data_window.player_start_x][data_window.player_start_y] != '0')
 		return (0);
-	}
 	data_window.mlx = mlx_init();
 	mlx_get_screen_size(data_window.mlx, &data_window.size_screen_x, &data_window.size_screen_y); // extract size of srceen
 	data_window.taille_x = data_window.size_screen_x * handler_size_srceen;

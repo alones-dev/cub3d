@@ -6,7 +6,7 @@
 /*   By: cornguye <cornguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:25:14 by cornguye          #+#    #+#             */
-/*   Updated: 2024/04/20 14:23:18 by cornguye         ###   ########.fr       */
+/*   Updated: 2024/04/20 15:29:41 by cornguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void move_player(t_window *data, double move_x, double move_y)
 	new_y = roundf(data->data_player->posy + move_y);
 	map_grid_x = (new_x / data->size_case);
 	map_grid_y = (new_y / data->size_case);
-	if (data->map[map_grid_y][map_grid_x] != '1' && (data->map[map_grid_y][data->data_player->posx / data->size_case] != '1' && data->map[data->data_player->posy / data->size_case][map_grid_x] != '1'))
+	if (data->map[map_grid_x][map_grid_y] != '1' && (data->map[map_grid_x][data->data_player->posy / data->size_case] != '1' && data->map[data->data_player->posx / data->size_case][map_grid_y] != '1'))
 	{
 		data->data_player->posx = new_x;
 		data->data_player->posy = new_y;

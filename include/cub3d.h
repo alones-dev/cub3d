@@ -6,7 +6,7 @@
 /*   By: cornguye <cornguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:40:03 by kdaumont          #+#    #+#             */
-/*   Updated: 2024/04/20 14:08:56 by cornguye         ###   ########.fr       */
+/*   Updated: 2024/04/20 15:17:46 by cornguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ typedef struct t_window
 	int				w_map;
 	int				h_map;
 	int				size_case;
+	int				player_start_x;
+	int				player_start_y;
 	double			start_angle;
 	double			distance;
 	int				flag_wall;
