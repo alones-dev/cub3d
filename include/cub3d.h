@@ -6,7 +6,7 @@
 /*   By: cornguye <cornguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:40:03 by kdaumont          #+#    #+#             */
-/*   Updated: 2024/04/19 12:17:11 by cornguye         ###   ########.fr       */
+/*   Updated: 2024/04/20 14:08:56 by cornguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@
 # include "../mlx/mlx.h"
 # include <stdio.h>
 # include <math.h>
+
+# ifndef M_PI
+#  define M_PI 3.14159265358979323846264338327950288419716
+# endif
 
 typedef struct t_window
 {
@@ -31,27 +35,38 @@ typedef struct t_window
 	int				taille_y;
 	int				size_screen_x;
 	int				size_screen_y;
+	int				w_map;
+	int				h_map;
+	int				size_case;
+	double			start_angle;
+	double			distance;
+	int				flag_wall;
 	char			**map;
 	struct s_player	*data_player;
 }	t_window;
 
+
 typedef struct s_player
 {
-	double	posx;
-	double	posy;
-	double	dirx;
-	double	diry;
-	double	planex;
-	double	planey;
-	double	speed;
-	double	rot_speed;
-	char	start_dir;
+	int		posx;
+	int		posy;
+	double	angle;
+	double	fov_rad;
+	int		rot_flag;
+	int		slide_flag;
+	int		move_flag;
+	double	player_speed;
+	double	rotation_speed;
 }	t_player;
 
 /* utils.c */
 void	error_msg(char *str);
+int		close_win(t_window *data_window);
 
 /* parsing.c */
 int		is_cub_file(char *str, char *ext);
+
+/* movement.c */
+int		action_key(int keycode, t_window *data_window);
 
 #endif
