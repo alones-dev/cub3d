@@ -6,7 +6,7 @@
 /*   By: kdaumont <kdaumont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:37:16 by kdaumont          #+#    #+#             */
-/*   Updated: 2024/04/22 09:41:55 by kdaumont         ###   ########.fr       */
+/*   Updated: 2024/04/22 15:14:22 by kdaumont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /* TODO:
  * Check if the 6 infos (maps textures & colors) are ok   OK
  * Check if there is a map   OK
- * Check if the map is the last element
+ * Check if the map is the last element   OK
  * Put the infos in the structure  OK
  * Check if the infos are good   OK
  * Allocate the map   OK
@@ -127,11 +127,8 @@ int	init_map(t_map *map, char *file)
 	map->ea = NULL;
 	map->f = NULL;
 	map->c = NULL;
-	map->first_map = 0;
-	map->last_info = 0;
-	map->i = 0;
 	if (!parse_file(map, file))
-		return (error_msg("Missing informations"), 0);
+		return (error_msg("Bad informations amount"), 0);
 	if (!alloc_map(map, file))
 		return (0);
 	if (!check_all(map))

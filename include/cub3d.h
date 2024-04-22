@@ -6,7 +6,7 @@
 /*   By: kdaumont <kdaumont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:40:03 by kdaumont          #+#    #+#             */
-/*   Updated: 2024/04/22 09:41:43 by kdaumont         ###   ########.fr       */
+/*   Updated: 2024/04/22 15:14:25 by kdaumont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,6 @@ typedef struct s_map
 	char	*ea;
 	char	*f;
 	char	*c;
-	int		first_map;
-	int		last_info;
-	int		i;
 }			t_map;
 
 /* utils.c */
@@ -37,6 +34,7 @@ void		error_msg(char *str);
 int			is_cub_file(char *str, char *ext);
 int			is_in_set(char c, char *set);
 void		free_struct(t_map *map);
+int			is_space(char c);
 
 /* parsing.c */
 int			init_map(t_map *map, char *file);

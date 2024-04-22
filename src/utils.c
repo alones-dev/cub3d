@@ -6,7 +6,7 @@
 /*   By: kdaumont <kdaumont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 10:26:39 by cornguye          #+#    #+#             */
-/*   Updated: 2024/04/18 22:54:34 by kdaumont         ###   ########.fr       */
+/*   Updated: 2024/04/22 15:07:38 by kdaumont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,18 @@ void	free_struct(t_map *map)
 		free(map->f);
 	if (map->c)
 		free(map->c);
+}
+
+/* Check if the character is space or tab
+@param c -> character to check
+@return :
+	1 = character is space or tab
+	0 = character is not space or tab
+
+*/
+int	is_space(char c)
+{
+	if (c == ' ' || c == '\t' || c == '\n' || c == '\0')
+		return (1);
+	return (0);
 }
