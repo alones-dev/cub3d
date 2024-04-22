@@ -3,7 +3,7 @@ NAME		:= cub3D
 
 ### UTILS ###
 CC 			:= clang
-CFLAGS 		:= -Wall -Wextra -Werror
+CFLAGS 		:= -Wall -Wextra -Werror -g3
 DEP_FLAGS	:= -MMD -MP
 MAKE_FLAG 	:= --no-print-directory --silent
 RM 			:= rm -rf

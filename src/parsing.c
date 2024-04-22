@@ -6,7 +6,7 @@
 /*   By: kdaumont <kdaumont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:37:16 by kdaumont          #+#    #+#             */
-/*   Updated: 2024/04/19 15:56:40 by kdaumont         ###   ########.fr       */
+/*   Updated: 2024/04/22 09:41:55 by kdaumont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,8 @@
  * Check if the infos are good   OK
  * Allocate the map   OK
  * Check if the map is closed
- * Check if the map have not space
+ * Check if the map have not space   OK
  * Check if the map get the right amount of elements (1 player -> N, S, E or W)   OK
- * Check if the player is not stuck around walls
  */
 
 /* Put the differents informations in the structure
@@ -128,11 +127,14 @@ int	init_map(t_map *map, char *file)
 	map->ea = NULL;
 	map->f = NULL;
 	map->c = NULL;
+	map->first_map = 0;
+	map->last_info = 0;
+	map->i = 0;
 	if (!parse_file(map, file))
 		return (error_msg("Missing informations"), 0);
 	if (!alloc_map(map, file))
 		return (0);
-	if (!check_elements(map))
-		return (error_msg("Map must have one player start"), 0);
+	if (!check_all(map))
+		return (0);
 	return (1);
 }

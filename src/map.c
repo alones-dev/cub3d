@@ -6,7 +6,7 @@
 /*   By: kdaumont <kdaumont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 22:51:58 by kdaumont          #+#    #+#             */
-/*   Updated: 2024/04/19 11:03:22 by kdaumont         ###   ########.fr       */
+/*   Updated: 2024/04/22 09:35:32 by kdaumont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,23 @@ int	parse_map(t_map *map, char *file, int state)
 	return (free(line), close(fd), count);
 }
 
+/* Remove spaces at the end of the map
+@param map -> t_map struct pointer
+*/
+void	remove_spaces(t_map *map)
+{
+	int	i;
+
+	i = 0;
+	while (map->map[i])
+		i++;
+	while (--i > 0 && (map->map[i][0] == '\n' || map->map[i][0] == '\0'))
+	{
+		if (map->map[i][0] == '\n' || map->map[i][0] == '\0')
+			map->map[i] = NULL;
+	}
+}
+
 /* Allocate memory for the map
 @param map -> t_map struct pointer
 @param file -> file to parse
@@ -113,5 +130,6 @@ int	alloc_map(t_map *map, char *file)
 		return (0);
 	if (parse_map(map, file, 1) == -1)
 		return (0);
+	remove_spaces(map);
 	return (1);
 }
