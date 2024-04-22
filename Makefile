@@ -49,6 +49,7 @@ LIB 		:= $(strip $(LIB))
 
 define SRC :=
 	check_map.c
+	colors.c
 	main.c
 	map.c
 	utils.c

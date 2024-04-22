@@ -6,7 +6,7 @@
 /*   By: kdaumont <kdaumont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 10:26:39 by cornguye          #+#    #+#             */
-/*   Updated: 2024/04/22 15:07:38 by kdaumont         ###   ########.fr       */
+/*   Updated: 2024/04/22 15:38:35 by kdaumont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int is_in_set(char c, char *set)
 void	free_struct(t_map *map)
 {
 	if (map->map)
-		free_map(map);
+		free_array(map->map);
 	if (map->no)
 		free(map->no);
 	if (map->so)

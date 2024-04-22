@@ -6,7 +6,7 @@
 /*   By: kdaumont <kdaumont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:40:03 by kdaumont          #+#    #+#             */
-/*   Updated: 2024/04/22 15:14:25 by kdaumont         ###   ########.fr       */
+/*   Updated: 2024/04/22 16:49:12 by kdaumont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ typedef struct s_map
 	char	*ea;
 	char	*f;
 	char	*c;
+	char	*color_floor;
+	char	*color_ceil;
 }			t_map;
 
 /* utils.c */
@@ -40,10 +42,13 @@ int			is_space(char c);
 int			init_map(t_map *map, char *file);
 
 /* map.c */
-void		free_map(t_map *map);
+void		free_array(char **array);
 int			alloc_map(t_map *map, char *file);
 
 /* check_map.c */
 int			check_all(t_map *map);
+
+/* colors.c */
+int			parse_color_f(t_map *map);
 
 #endif

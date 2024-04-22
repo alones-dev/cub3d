@@ -6,25 +6,25 @@
 /*   By: kdaumont <kdaumont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 22:51:58 by kdaumont          #+#    #+#             */
-/*   Updated: 2024/04/22 09:35:32 by kdaumont         ###   ########.fr       */
+/*   Updated: 2024/04/22 15:39:00 by kdaumont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-/* Free all line in map
+/* Free all values in array
 @param map -> t_map struct pointer
 */
-void	free_map(t_map *map)
+void	free_array(char **array)
 {
 	int	i;
 
 	i = -1;
-	if (map->map)
+	if (array)
 	{
-		while (map->map[++i])
-			free(map->map[i]);
-		free(map->map);
+		while (array[++i])
+			free(array[i]);
+		free(array);
 	}
 }
 

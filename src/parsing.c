@@ -6,23 +6,11 @@
 /*   By: kdaumont <kdaumont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:37:16 by kdaumont          #+#    #+#             */
-/*   Updated: 2024/04/22 15:14:22 by kdaumont         ###   ########.fr       */
+/*   Updated: 2024/04/22 16:49:30 by kdaumont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-/* TODO:
- * Check if the 6 infos (maps textures & colors) are ok   OK
- * Check if there is a map   OK
- * Check if the map is the last element   OK
- * Put the infos in the structure  OK
- * Check if the infos are good   OK
- * Allocate the map   OK
- * Check if the map is closed
- * Check if the map have not space   OK
- * Check if the map get the right amount of elements (1 player -> N, S, E or W)   OK
- */
 
 /* Put the differents informations in the structure
 @param map -> t_map struct pointer
@@ -127,11 +115,14 @@ int	init_map(t_map *map, char *file)
 	map->ea = NULL;
 	map->f = NULL;
 	map->c = NULL;
+	map->color_floor = NULL;
+	map->color_ceil = NULL;
 	if (!parse_file(map, file))
 		return (error_msg("Bad informations amount"), 0);
 	if (!alloc_map(map, file))
 		return (0);
 	if (!check_all(map))
 		return (0);
+	parse_color_f(map);
 	return (1);
 }
