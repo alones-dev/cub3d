@@ -6,7 +6,7 @@
 /*   By: cornguye <cornguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:40:03 by kdaumont          #+#    #+#             */
-/*   Updated: 2024/04/20 15:17:46 by cornguye         ###   ########.fr       */
+/*   Updated: 2024/04/22 14:10:19 by cornguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 # include "libft.h"
 # include "../mlx/mlx.h"
+# include "../mlx/mlx_int.h"
+# include <X11/X.h>
+# include <X11/keysym.h>
 # include <stdio.h>
 # include <math.h>
 
@@ -40,9 +43,11 @@ typedef struct t_window
 	int				size_case;
 	int				player_start_x;
 	int				player_start_y;
+	int				last_x_mouse;
 	double			start_angle;
 	double			distance;
 	int				flag_wall;
+	int				show_map;
 	char			**map;
 	struct s_player	*data_player;
 }	t_window;
@@ -70,5 +75,7 @@ int		is_cub_file(char *str, char *ext);
 
 /* movement.c */
 int		action_key(int keycode, t_window *data_window);
+int		draw_map(t_window *data);
+int		mouse_hook(int x, int y, t_window *data);
 
 #endif

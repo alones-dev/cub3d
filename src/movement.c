@@ -6,7 +6,7 @@
 /*   By: cornguye <cornguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:25:14 by cornguye          #+#    #+#             */
-/*   Updated: 2024/04/20 15:29:41 by cornguye         ###   ########.fr       */
+/*   Updated: 2024/04/22 14:31:33 by cornguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void move_player(t_window *data, double move_x, double move_y)
 	new_y = roundf(data->data_player->posy + move_y);
 	map_grid_x = (new_x / data->size_case);
 	map_grid_y = (new_y / data->size_case);
-	if (data->map[map_grid_x][map_grid_y] != '1' && (data->map[map_grid_x][data->data_player->posy / data->size_case] != '1' && data->map[data->data_player->posx / data->size_case][map_grid_y] != '1'))
+	if (data->map[map_grid_y][map_grid_x] != '1' && (data->map[map_grid_y][data->data_player->posx / data->size_case] != '1' && data->map[data->data_player->posy / data->size_case][map_grid_x] != '1'))
 	{
 		data->data_player->posx = new_x;
 		data->data_player->posy = new_y;
@@ -84,6 +84,36 @@ void	rotate_e(t_window *data)
 		data->data_player->angle -= 2 * M_PI;
 }
 
+int	mouse_hook(int x, int y, t_window *data)
+{	
+	if (x < 10)
+	{
+		data->data_player->angle -= 0.02;
+		if (data->data_player->angle < 0)
+			data->data_player->angle += 2 * M_PI;
+	}
+	else if (x > data->taille_x - 10)
+	{
+		data->data_player->angle += 0.02;
+		if (data->data_player->angle > 2 * M_PI)
+			data->data_player->angle -= 2 * M_PI;
+	}
+	else if (x < data->last_x_mouse)
+	{
+		data->data_player->angle -= 0.02;
+		if (data->data_player->angle < 0)
+			data->data_player->angle += 2 * M_PI;
+	}
+	else if (x > data->last_x_mouse)
+	{
+		data->data_player->angle += 0.02;
+		if (data->data_player->angle > 2 * M_PI)
+			data->data_player->angle -= 2 * M_PI;
+	}
+	data->last_x_mouse = x;
+	return (0);
+}
+
 int	action_key(int keycode, t_window *data_window)
 {
 	if (keycode == 65307)
@@ -108,15 +138,20 @@ int	action_key(int keycode, t_window *data_window)
 		move_d(data_window);
 		printf("MOVE D\n");
 	}
-	else if (keycode == 113)	// q rotate
+	else if (keycode == 113 || keycode == 65361)	// q rotate
 	{
 		rotate_q(data_window);
-		printf("MOVE Q\n");
+		printf("Rotate Gauche\n");
 	}
-	else if (keycode == 101)	// e rotate
+	else if (keycode == 101 || keycode == 65363)	// e rotate
 	{
 		rotate_e(data_window);
-		printf("MOVE E\n");
+		printf("Rotate Droite\n");
+	}
+	else if (keycode == 65289)
+	{
+		data_window->show_map = 1;
+		draw_map(data_window);
 	}
 	return (0);
 }

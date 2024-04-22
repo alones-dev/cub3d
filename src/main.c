@@ -6,7 +6,7 @@
 /*   By: cornguye <cornguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 09:17:18 by cornguye          #+#    #+#             */
-/*   Updated: 2024/04/20 15:29:29 by cornguye         ###   ########.fr       */
+/*   Updated: 2024/04/22 14:12:09 by cornguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,13 @@ void	init_map(t_window *data_window)
 	data_window->map[14] = "11111111 1111111 111111111111    ";
 	data_window->map[15] = NULL;
 	
-	data_window->w_map = 32;
-	data_window->h_map = 16;
+	data_window->w_map = 33;
+	data_window->h_map = 15;
 	data_window->size_case = 30;
 	data_window->player_start_x = 10;
 	data_window->player_start_y = 10;
+	data_window->show_map = 0;
+	data_window->last_x_mouse = data_window->taille_x / 2;
 }
 
 void	init_player(t_window *data_window)
@@ -227,19 +229,19 @@ void	draw_wall(t_window *data, int ray, int t_pix, int b_pix)
 void	show_wall(t_window *data, int ray)
 {
 	double	wall_h;
-	double	b_pix;
-	double	t_pix;
+	double	start_pix;
+	double	end_pix;
 
 	data->distance *= cos(check_angle(data->start_angle - data->data_player->angle));
 	wall_h = (data->size_case / data->distance) * ((data->taille_x / 2) / tan(data->data_player->fov_rad / 2));
-	b_pix = (data->taille_y / 2) + (wall_h / 2);
-	t_pix = (data->taille_y / 2) - (wall_h / 2);
-	if (b_pix > data->taille_y)
-		b_pix = data->taille_y;
-	if (t_pix < 0)
-		t_pix = 0;
-	draw_wall(data, ray, t_pix, b_pix);
-	draw_floor_ceiling(data, ray, t_pix, b_pix);
+	start_pix = (data->taille_y / 2) + (wall_h / 2);
+	end_pix = (data->taille_y / 2) - (wall_h / 2);
+	if (start_pix > data->taille_y)
+		start_pix = data->taille_y;
+	if (end_pix < 0)
+		end_pix = 0;
+	draw_wall(data, ray, end_pix, start_pix);
+	draw_floor_ceiling(data, ray, end_pix, start_pix);
 }
 
 void	ray_casting(t_window *data)
@@ -268,16 +270,73 @@ void	ray_casting(t_window *data)
 	}
 }
 
+int	draw_map(t_window *data)
+{
+	int	x;
+	int	y;
+	int	size_tile;
+	int	compteur_x_tile = 0;
+	int	compteur_y_tile = 0;
+
+	if (data->h_map > data->w_map)
+		size_tile = (data->taille_y - 200) / data->w_map; 
+	else
+		size_tile = (data->taille_y - 200) / data->h_map;
+	mlx_destroy_image(data->mlx, data->img);
+	data->img = mlx_new_image(data->mlx, data->taille_x, data->taille_y);
+	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel, &data->line_length, &data->endian);
+	x = 0;
+	while (x < data->taille_x)
+	{
+		y = 0;
+		compteur_x_tile = 0;
+		while (y < data->taille_y)
+		{
+			if (x < 100 || x > data->taille_x - 100 || y < 100 || y > data->taille_y - 100)
+				my_mlx_pixel_put(data, x, y, 0x009e9a9a);
+			else
+			{
+				if (data->map[compteur_x_tile][compteur_y_tile] == ' ' || data->map[compteur_x_tile][compteur_y_tile] == '1')
+					my_mlx_pixel_put(data, x, y, 0x00000000);
+				else if (compteur_x_tile == data->data_player->posy / data->size_case && compteur_y_tile == data->data_player->posx / data->size_case)
+					my_mlx_pixel_put(data, x, y, 0x00fcd71c);
+				else if (data->map[compteur_x_tile][compteur_y_tile] == '0')
+					my_mlx_pixel_put(data, x, y, 0x00007bff);
+				if ((y + 100) % size_tile == 0 && compteur_x_tile < data->h_map - 1)
+					compteur_x_tile++;
+			}
+			y++;
+		}
+		if (x > 100 && (x + 100) % size_tile == 0 && compteur_y_tile < data->w_map - 1)
+			compteur_y_tile++;
+		x++;
+	}
+	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
+	return (0);
+}
+
 int	loop(void *st)
 {
 	t_window	*data_window;
 
 	data_window = st;
-	mlx_destroy_image(data_window->mlx, data_window->img);
-	data_window->img = mlx_new_image(data_window->mlx, data_window->taille_x, data_window->taille_y);
-	data_window->addr = mlx_get_data_addr(data_window->img, &data_window->bits_per_pixel, &data_window->line_length, &data_window->endian);
-	ray_casting(data_window);
-	mlx_put_image_to_window(data_window->mlx, data_window->win, data_window->img, 0, 0);
+	if (data_window->show_map)
+		draw_map(data_window);
+	else
+	{
+		mlx_destroy_image(data_window->mlx, data_window->img);
+		data_window->img = mlx_new_image(data_window->mlx, data_window->taille_x, data_window->taille_y);
+		data_window->addr = mlx_get_data_addr(data_window->img, &data_window->bits_per_pixel, &data_window->line_length, &data_window->endian);
+		ray_casting(data_window);
+		mlx_put_image_to_window(data_window->mlx, data_window->win, data_window->img, 0, 0);
+	}
+	return (0);
+}
+
+int	key_released_map(int keycode, t_window *data)
+{
+	if (keycode == 65289)
+		data->show_map = 0;
 	return (0);
 }
 
@@ -299,16 +358,20 @@ int	main(int ac, char **av)
 	if (data_window.map[data_window.player_start_x][data_window.player_start_y] != '0')
 		return (0);
 	data_window.mlx = mlx_init();
-	mlx_get_screen_size(data_window.mlx, &data_window.size_screen_x, &data_window.size_screen_y); // extract size of srceen
+	mlx_get_screen_size(data_window.mlx, &data_window.size_screen_x, &data_window.size_screen_y);
 	data_window.taille_x = data_window.size_screen_x * handler_size_srceen;
 	data_window.taille_y = data_window.size_screen_y * handler_size_srceen;
 	data_window.win = mlx_new_window(data_window.mlx, data_window.taille_x, data_window.taille_y, "Bonjour je suis Bob !");
 	data_window.img = mlx_new_image(data_window.mlx, data_window.taille_x, data_window.taille_y);
 	data_window.addr = mlx_get_data_addr(data_window.img, &data_window.bits_per_pixel, &data_window.line_length, &data_window.endian);
-			
+	
 	mlx_loop_hook(data_window.mlx, &loop, &data_window);
-	mlx_key_hook(data_window.win, action_key, &data_window); // close with echap
-	mlx_hook(data_window.win, 17, 1L << 17, close_win, &data_window); // close with cross
+	mlx_hook(data_window.win, KeyPress, KeyPressMask, action_key, &data_window);
+
+	mlx_key_hook(data_window.win, &key_released_map, &data_window); // Relâchement de touche tab
+	mlx_hook(data_window.win, MotionNotify, PointerMotionMask, mouse_hook, &data_window);
+
+	mlx_hook(data_window.win, 17, 1L << 17, close_win, &data_window);
 	mlx_loop(data_window.mlx);
 	return (0);
 }
