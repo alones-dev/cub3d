@@ -6,7 +6,7 @@
 /*   By: kdaumont <kdaumont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:37:16 by kdaumont          #+#    #+#             */
-/*   Updated: 2024/04/22 16:49:30 by kdaumont         ###   ########.fr       */
+/*   Updated: 2024/04/23 14:28:12 by kdaumont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,14 +115,15 @@ int	init_map(t_map *map, char *file)
 	map->ea = NULL;
 	map->f = NULL;
 	map->c = NULL;
-	map->color_floor = NULL;
-	map->color_ceil = NULL;
 	if (!parse_file(map, file))
 		return (error_msg("Bad informations amount"), 0);
 	if (!alloc_map(map, file))
 		return (0);
 	if (!check_all(map))
 		return (0);
-	parse_color_f(map);
+	if (!parse_color_f(map))
+		return (error_msg("Bad floor color"), 0);
+	if (!parse_color_c(map))
+		return (error_msg("Bad ceil color"), 0);
 	return (1);
 }
