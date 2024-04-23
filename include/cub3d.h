@@ -6,7 +6,7 @@
 /*   By: cornguye <cornguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:40:03 by kdaumont          #+#    #+#             */
-/*   Updated: 2024/04/23 12:25:29 by cornguye         ###   ########.fr       */
+/*   Updated: 2024/04/23 13:41:10 by cornguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	error_msg(char *str);
 int		close_win(t_window *data_window);
 double	check_angle(double angle);
 int		unit_circle(double angle, char c);
+int		get_color_rgb(int r, int g, int b);
 
 /* parsing.c */
 int		is_cub_file(char *str, char *ext);
@@ -77,6 +78,7 @@ int		is_cub_file(char *str, char *ext);
 int		action_key(int keycode, t_window *data_window);
 int		draw_map(t_window *data);
 int		mouse_hook(int x, int y, t_window *data);
+int		key_released_map(int keycode, t_window *data);
 
 /* ray_casting */
 void	ray_casting(t_window *data);
@@ -93,5 +95,8 @@ void	move_z(t_window *data);
 void	move_s(t_window *data);
 void	move_a(t_window *data);
 void	move_d(t_window *data);
+
+/* init_value.c */
+int		init_all(t_window *data_window);
 
 #endif

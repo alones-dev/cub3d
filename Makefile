@@ -56,6 +56,7 @@ define SRC :=
 	mini_map.c
 	put_element.c
 	init_mvt.c
+	init_value.c
 endef
 SRC 		:= $(strip $(SRC))
 

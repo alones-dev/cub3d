@@ -6,7 +6,7 @@
 /*   By: cornguye <cornguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:15:09 by cornguye          #+#    #+#             */
-/*   Updated: 2024/04/23 12:41:23 by cornguye         ###   ########.fr       */
+/*   Updated: 2024/04/23 13:31:32 by cornguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	draw_floor_ceiling(t_window *data, int ray, int t_pix, int b_pix)
 {
-	int  i;
+	int	i;
 
 	i = b_pix;
 	while (i < data->taille_y)
-		my_mlx_pixel_put(data, ray, i++, 0x007fd75c);
+		my_mlx_pixel_put(data, ray, i++, get_color_rgb(132, 251, 85));
 	i = 0;
 	while (i < t_pix)
-		my_mlx_pixel_put(data, ray, i++, 0x00007bff);
+		my_mlx_pixel_put(data, ray, i++, get_color_rgb(12, 51, 5));
 }
 
 int	get_color(t_window *data, int flag)
@@ -29,13 +29,17 @@ int	get_color(t_window *data, int flag)
 	data->start_angle = check_angle(data->start_angle);
 	if (flag == 0)
 	{
-		// if (data->start_angle > M_PI / 2 && data->start_angle < 3 * (M_PI / 2))
-			return (0xB5B5B5FF);
+		if (data->start_angle > M_PI / 2 && data->start_angle < 3 * (M_PI / 2))
+			return (0); // data->tex->ea
+		else
+			return (0); // data->tex->we
 	}
 	else
 	{
-		// if (data->start_angle > 0 && data->start_angle < M_PI)
-			return (0xF5F5F5FF);
+		if (data->start_angle > 0 && data->start_angle < M_PI)
+			return (0); // data->tex->so
+		else
+			return (0); // data->tex->no
 	}
 }
 

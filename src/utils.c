@@ -6,11 +6,16 @@
 /*   By: cornguye <cornguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 10:26:39 by cornguye          #+#    #+#             */
-/*   Updated: 2024/04/23 12:25:21 by cornguye         ###   ########.fr       */
+/*   Updated: 2024/04/23 13:25:47 by cornguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int	get_color_rgb(int r, int g, int b)
+{
+    return ((r << 16) | (g << 8) | (b));
+}
 
 int	unit_circle(double angle, char c)
 {
@@ -21,8 +26,8 @@ int	unit_circle(double angle, char c)
 	}
 	else if (c == 'y')
 	{
-	if (angle > (M_PI / 2) && angle < (3 * M_PI) / 2)
-		return (1);
+		if (angle > (M_PI / 2) && angle < (3 * M_PI) / 2)
+			return (1);
 	}
 	return (0);
 }

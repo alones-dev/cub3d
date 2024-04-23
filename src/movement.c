@@ -6,11 +6,18 @@
 /*   By: cornguye <cornguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:25:14 by cornguye          #+#    #+#             */
-/*   Updated: 2024/04/23 12:21:09 by cornguye         ###   ########.fr       */
+/*   Updated: 2024/04/23 13:40:55 by cornguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int	key_released_map(int keycode, t_window *data)
+{
+	if (keycode == 65289)
+		data->show_map = 0;
+	return (0);
+}
 
 void	rotate_q(t_window *data)
 {
@@ -48,17 +55,17 @@ int	action_key(int keycode, t_window *data_window)
 {
 	if (keycode == 65307)
 		close_win(data_window);
-	else if (keycode == 119)	// z
+	else if (keycode == 119)
 		move_z(data_window);
-	else if (keycode == 115)	// s
+	else if (keycode == 115)
 		move_s(data_window);
-	else if (keycode == 97)		// a
+	else if (keycode == 97)
 		move_a(data_window);
-	else if (keycode == 100)	// d
+	else if (keycode == 100)
 		move_d(data_window);
-	else if (keycode == 113 || keycode == 65361)	// rotate left
+	else if (keycode == 113 || keycode == 65361)
 		rotate_q(data_window);
-	else if (keycode == 101 || keycode == 65363)	// rotate right
+	else if (keycode == 101 || keycode == 65363)
 		rotate_e(data_window);
 	else if (keycode == 65289)
 	{
