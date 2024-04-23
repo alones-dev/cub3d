@@ -6,14 +6,14 @@
 /*   By: kdaumont <kdaumont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 10:26:39 by cornguye          #+#    #+#             */
-/*   Updated: 2024/04/22 15:38:35 by kdaumont         ###   ########.fr       */
+/*   Updated: 2024/04/23 16:40:08 by kdaumont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 /* Print an error message in the standard error output
-@param str -> message to print
+@param str -> message to print in the error output
 */
 void	error_msg(char *str)
 {
