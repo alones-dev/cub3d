@@ -6,11 +6,35 @@
 /*   By: cornguye <cornguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 10:26:39 by cornguye          #+#    #+#             */
-/*   Updated: 2024/04/20 13:35:08 by cornguye         ###   ########.fr       */
+/*   Updated: 2024/04/23 12:25:21 by cornguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int	unit_circle(double angle, char c)
+{
+	if (c == 'x')
+	{
+		if (angle > 0 && angle < M_PI)
+			return (1);
+	}
+	else if (c == 'y')
+	{
+	if (angle > (M_PI / 2) && angle < (3 * M_PI) / 2)
+		return (1);
+	}
+	return (0);
+}
+
+double	check_angle(double angle)
+{
+	if (angle < 0)
+		angle += (2 * M_PI);
+	if (angle > (2 * M_PI))
+		angle -= (2 * M_PI);
+	return (angle);
+}
 
 void	error_msg(char *str)
 {

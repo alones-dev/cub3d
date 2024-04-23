@@ -6,7 +6,7 @@
 /*   By: cornguye <cornguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:40:03 by kdaumont          #+#    #+#             */
-/*   Updated: 2024/04/22 14:10:19 by cornguye         ###   ########.fr       */
+/*   Updated: 2024/04/23 12:25:29 by cornguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <math.h>
 
 # ifndef M_PI
-#  define M_PI 3.14159265358979323846264338327950288419716
+#  define M_PI 3.1415926
 # endif
 
 typedef struct t_window
@@ -49,6 +49,7 @@ typedef struct t_window
 	int				flag_wall;
 	int				show_map;
 	char			**map;
+	char			start_orientation;
 	struct s_player	*data_player;
 }	t_window;
 
@@ -59,9 +60,6 @@ typedef struct s_player
 	int		posy;
 	double	angle;
 	double	fov_rad;
-	int		rot_flag;
-	int		slide_flag;
-	int		move_flag;
 	double	player_speed;
 	double	rotation_speed;
 }	t_player;
@@ -69,6 +67,8 @@ typedef struct s_player
 /* utils.c */
 void	error_msg(char *str);
 int		close_win(t_window *data_window);
+double	check_angle(double angle);
+int		unit_circle(double angle, char c);
 
 /* parsing.c */
 int		is_cub_file(char *str, char *ext);
@@ -77,5 +77,21 @@ int		is_cub_file(char *str, char *ext);
 int		action_key(int keycode, t_window *data_window);
 int		draw_map(t_window *data);
 int		mouse_hook(int x, int y, t_window *data);
+
+/* ray_casting */
+void	ray_casting(t_window *data);
+
+/* mini_map.c */
+void	my_mlx_pixel_put(t_window *data, int x, int y, int color);
+int		draw_map(t_window *data);
+
+/* put_element.c */
+void	show_wall(t_window *data, int ray);
+
+/* init_mvt.c */
+void	move_z(t_window *data);
+void	move_s(t_window *data);
+void	move_a(t_window *data);
+void	move_d(t_window *data);
 
 #endif

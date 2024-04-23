@@ -52,6 +52,10 @@ define SRC :=
 	utils.c
 	parsing.c
 	movement.c
+	ray_cast.c
+	mini_map.c
+	put_element.c
+	init_mvt.c
 endef
 SRC 		:= $(strip $(SRC))
 
