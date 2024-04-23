@@ -3,26 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cornguye <cornguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kdaumont <kdaumont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:16:41 by cornguye          #+#    #+#             */
-/*   Updated: 2024/03/18 15:48:32 by cornguye         ###   ########.fr       */
+/*   Updated: 2024/04/23 13:08:46 by kdaumont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char const *s1, char const s2)
 {
 	unsigned int	i;
 	unsigned int	compteur;
 	char			*new_chaine;
 
-	if (!s1 || !s2)
+	if (!s1)
 		return (0);
+	write(1, "TEST", 4);
 	i = 0;
 	compteur = 0;
-	new_chaine = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) +1));
+	new_chaine = malloc(sizeof(char) * (ft_strlen(s1) + 1 + 1));
 	if (!new_chaine)
 		return (NULL);
 	while (i < ft_strlen(s1))
@@ -32,12 +33,9 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		compteur++;
 	}
 	i = 0;
-	while (i < ft_strlen(s2))
-	{
-		new_chaine[compteur++] = s2[i];
-		i++;
-	}	
-	new_chaine[compteur] = '\0';
+	new_chaine[compteur] = s2;
+	i++;
+	new_chaine[compteur++] = '\0';
 	return (new_chaine);
 }
 
