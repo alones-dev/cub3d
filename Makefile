@@ -3,7 +3,7 @@ NAME		:= cub3D
 
 ### UTILS ###
 CC 			:= clang
-CFLAGS 		:= -g3
+CFLAGS 		:= -Wall -Wextra -Werror -g3
 DEP_FLAGS	:= -MMD -MP
 MAKE_FLAG 	:= --no-print-directory --silent
 RM 			:= rm -rf
@@ -50,6 +50,7 @@ LIB 		:= $(strip $(LIB))
 define SRC :=
 	main.c
 	utils.c
+	utils2.c
 	parsing.c
 	movement.c
 	ray_cast.c
@@ -58,6 +59,10 @@ define SRC :=
 	init_mvt.c
 	init_value.c
 	init_txt.c
+	check_map.c
+	color.c
+	map.c
+	utils_parsing.c
 endef
 SRC 		:= $(strip $(SRC))
 

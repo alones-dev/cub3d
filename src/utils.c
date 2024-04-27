@@ -6,7 +6,7 @@
 /*   By: cornguye <cornguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 10:26:39 by cornguye          #+#    #+#             */
-/*   Updated: 2024/04/26 15:58:47 by cornguye         ###   ########.fr       */
+/*   Updated: 2024/04/27 17:29:58 by cornguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,20 @@
 int	get_color_rgb(int r, int g, int b)
 {
 	return ((r << 16) | (g << 8) | (b));
+}
+
+int	set_start_value(t_window *data, int i, int j, t_map *map)
+{
+	if (map->map[i][j] == 'N' || map->map[i][j] == 'S'
+				|| map->map[i][j] == 'E' || map->map[i][j] == 'W')
+	{
+		data->start_orientation = map->map[i][j];
+		data->player_start_x = j;
+		data->player_start_y = i;
+		return (1);
+	}
+	else
+		return (0);
 }
 
 int	unit_circle(double angle, char c)
@@ -41,29 +55,25 @@ double	check_angle(double angle)
 	return (angle);
 }
 
-void	error_msg(char *str)
+char	*ft_strdup_stop_wspace(const char *s)
 {
-	ft_putstr_fd("Error\n", 2);
-	ft_putstr_fd(str, 2);
-	ft_putchar_fd('\n', 2);
-}
+	int		i;
+	int		len_src;
+	char	*result;
 
-void	free_txt(t_window *data_window)
-{
-	free(data_window->texture_E);
-	free(data_window->texture_W);
-	free(data_window->texture_N);
-	free(data_window->texture_S);
-}
-
-int	close_win(t_window *data_window)
-{
-	free(data_window->map);
-	free_txt(data_window);
-	mlx_destroy_image(data_window->mlx, data_window->img);
-	mlx_destroy_window(data_window->mlx, data_window->win);
-	mlx_destroy_display(data_window->mlx);
-	free(data_window->mlx);
-	exit (EXIT_SUCCESS);
-	return (0);
+	len_src = 0;
+	i = 0;
+	while (s[len_src] && s[len_src] != ' ' && s[len_src] != '\t'
+		&& s[len_src] != '\n')
+		len_src++;
+	result = malloc((len_src + 1) * sizeof(char));
+	if (!result)
+		return (NULL);
+	while (s[i] && s[i] != ' ' && s[i] != '\t' && s[i] != '\n')
+	{
+		result[i] = s[i];
+		i++;
+	}
+	result[i] = '\0';
+	return (result);
 }

@@ -6,7 +6,7 @@
 /*   By: cornguye <cornguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:59:40 by cornguye          #+#    #+#             */
-/*   Updated: 2024/04/26 15:54:16 by cornguye         ###   ########.fr       */
+/*   Updated: 2024/04/27 16:59:50 by cornguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,10 @@ int	wall_hit(double x, double y, t_window *data)
 	y_m = floor (y / data->size_case);
 	if ((y_m >= data->h_map || x_m >= data->w_map))
 		return (0);
-	if (data->map[y_m] && x_m <= (int)ft_strlen(data->map[y_m]))
+	if (data->data_map->map[y_m]
+		&& x_m <= (int)ft_strlen(data->data_map->map[y_m]))
 	{
-		if (data->map[y_m][x_m] == '1')
+		if (data->data_map->map[y_m][x_m] == '1')
 			return (0);
 	}
 	return (1);

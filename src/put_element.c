@@ -6,7 +6,7 @@
 /*   By: cornguye <cornguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:15:09 by cornguye          #+#    #+#             */
-/*   Updated: 2024/04/26 16:02:26 by cornguye         ###   ########.fr       */
+/*   Updated: 2024/04/27 17:00:40 by cornguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,17 @@ void	floor_ceiling(t_window *data, int ray, int start_pix, int end_pix)
 	start_draw = end_pix;
 	while (start_draw < data->taille_y)
 	{
-		my_mlx_pixel_put(data, ray, start_draw, get_color_rgb(132, 251, 85));
+		my_mlx_pixel_put(data, ray, start_draw,
+			get_color_rgb(data->data_map->floor[0],
+				data->data_map->floor[1], data->data_map->floor[2]));
 		start_draw++;
 	}
 	start_draw = 0;
 	while (start_draw < start_pix)
 	{
-		my_mlx_pixel_put(data, ray, start_draw, get_color_rgb(12, 51, 5));
+		my_mlx_pixel_put(data, ray, start_draw,
+			get_color_rgb(data->data_map->ceiling[0],
+				data->data_map->ceiling[1], data->data_map->ceiling[2]));
 		start_draw++;
 	}
 }

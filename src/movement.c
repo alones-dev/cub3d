@@ -6,7 +6,7 @@
 /*   By: cornguye <cornguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:25:14 by cornguye          #+#    #+#             */
-/*   Updated: 2024/04/24 08:56:28 by cornguye         ###   ########.fr       */
+/*   Updated: 2024/04/27 17:38:39 by cornguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	rotate_e(t_window *data)
 
 int	mouse_hook(int x, int y, t_window *data)
 {	
+	y = 0;
 	if (x < data->last_x_mouse)
 	{
 		data->data_player->angle -= 0.02;
