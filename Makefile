@@ -57,6 +57,7 @@ define SRC :=
 	put_element.c
 	init_mvt.c
 	init_value.c
+	init_txt.c
 endef
 SRC 		:= $(strip $(SRC))
 

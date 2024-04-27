@@ -6,7 +6,7 @@
 /*   By: cornguye <cornguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 09:17:18 by cornguye          #+#    #+#             */
-/*   Updated: 2024/04/23 13:40:49 by cornguye         ###   ########.fr       */
+/*   Updated: 2024/04/27 14:15:43 by cornguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,14 @@ int	loop(void *st)
 	return (0);
 }
 
+
+	// if (ac != 2)
+	// 	return (error_msg("Usage : ./cub3D scene.cub"), 1);
+	// if (!is_cub_file(av[1], ".cub"))
+	// 	return (error_msg("Invalid file extension (.cub needed)"), 1);
+	// if (!init_map(&map, av[1]))
+	// 	return (free_struct(&map), 1);
+		
 int	main(int ac, char **av)
 {
 	t_window	data_window;
@@ -44,10 +52,15 @@ int	main(int ac, char **av)
 		return (error_msg("Invalid file extension (.cub needed)"), 1);
 	printf("File is valid -> %s\n", av[1]);
 
-	init_all(&data_window);
+	char *str = NULL;
+	printf("%s\n", str);
+	exit(0);
+	
+	init_all_value(&data_window);
 	if (data_window.map[data_window.player_start_x][data_window.player_start_y] != '0')
 		return (0);
 	data_window.mlx = mlx_init();
+	init_txt(&data_window);
 	mlx_get_screen_size(data_window.mlx, &data_window.size_screen_x, &data_window.size_screen_y);
 	data_window.taille_x = data_window.size_screen_x * handler_size_srceen;
 	data_window.taille_y = data_window.size_screen_y * handler_size_srceen;
@@ -58,7 +71,7 @@ int	main(int ac, char **av)
 	mlx_loop_hook(data_window.mlx, &loop, &data_window);
 	mlx_hook(data_window.win, KeyPress, KeyPressMask, action_key, &data_window);
 
-	mlx_key_hook(data_window.win, &key_released_map, &data_window); // Relâchement de touche tab
+	mlx_key_hook(data_window.win, &key_released_map, &data_window);
 	mlx_hook(data_window.win, MotionNotify, PointerMotionMask, mouse_hook, &data_window);
 
 	mlx_hook(data_window.win, 17, 1L << 17, close_win, &data_window);

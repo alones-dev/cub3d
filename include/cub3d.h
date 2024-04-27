@@ -6,7 +6,7 @@
 /*   By: cornguye <cornguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:40:03 by kdaumont          #+#    #+#             */
-/*   Updated: 2024/04/23 13:41:10 by cornguye         ###   ########.fr       */
+/*   Updated: 2024/04/27 14:14:24 by cornguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,9 @@
 # include "libft.h"
 # include "../mlx/mlx.h"
 # include "../mlx/mlx_int.h"
-# include <X11/X.h>
-# include <X11/keysym.h>
 # include <stdio.h>
 # include <math.h>
+# include <stdint.h>
 
 # ifndef M_PI
 #  define M_PI 3.1415926
@@ -27,32 +26,62 @@
 
 typedef struct t_window
 {
-	void			*mlx;
-	void			*win;
-	void			*img;
-	char			*addr;
-	int				bits_per_pixel;
-	int				line_length;
-	int				endian;			
-	int				taille_x;
-	int				taille_y;
-	int				size_screen_x;
-	int				size_screen_y;
-	int				w_map;
-	int				h_map;
-	int				size_case;
-	int				player_start_x;
-	int				player_start_y;
-	int				last_x_mouse;
-	double			start_angle;
-	double			distance;
-	int				flag_wall;
-	int				show_map;
-	char			**map;
-	char			start_orientation;
-	struct s_player	*data_player;
+	void				*mlx;
+	void				*win;
+	void				*img;
+	char				*addr;
+	int					bits_per_pixel;
+	int					line_length;
+	int					endian;			
+	int					taille_x;
+	int					taille_y;
+	int					size_screen_x;
+	int					size_screen_y;
+	int					w_map;
+	int					h_map;
+	int					size_case;
+	int					player_start_x;
+	int					player_start_y;
+	int					last_x_mouse;
+	double				start_angle;
+	double				distance;
+	double				final_h_x;
+	double				final_v_y;
+	double				height_wall_abs;
+	int					flag_wall;
+	int					show_map;
+	char				**map;
+	char				start_orientation;
+	struct s_player		*data_player;
+	struct s_texture	*texture_S;
+	struct s_texture	*texture_W;
+	struct s_texture	*texture_E;
+	struct s_texture	*texture_N;
 }	t_window;
 
+typedef struct s_map
+{
+	char	**map;
+	char	*no;
+	char	*so;
+	char	*we;
+	char	*ea;
+	char	*f;
+	char	*c;
+	int		floor[3];
+	int		ceiling[3];
+}			t_map;
+
+typedef struct s_texture
+{
+	void	*img;
+	int		*addr;
+	int		width;
+	int		height;
+	int		bit_pixel;
+	int		endian;
+	int		size_line;
+}	t_texture;
 
 typedef struct s_player
 {
@@ -64,12 +93,23 @@ typedef struct s_player
 	double	rotation_speed;
 }	t_player;
 
+typedef struct s_mini_map
+{
+	int	compteur_x;
+	int	compteur_y;
+	int	size_tile;
+	int	color_player;
+	int	color_path;
+	int	color_wall;
+} t_mini_map;
+
 /* utils.c */
 void	error_msg(char *str);
 int		close_win(t_window *data_window);
 double	check_angle(double angle);
 int		unit_circle(double angle, char c);
 int		get_color_rgb(int r, int g, int b);
+int		reverse_bytes(int c);
 
 /* parsing.c */
 int		is_cub_file(char *str, char *ext);
@@ -97,6 +137,14 @@ void	move_a(t_window *data);
 void	move_d(t_window *data);
 
 /* init_value.c */
-int		init_all(t_window *data_window);
+int		init_all_value(t_window *data_window);
+void	init_txt(t_window *data);
+
+/* init_txt.c */
+void	init_txt_s(t_window *data, char *path);
+void	init_txt_e(t_window *data, char *path);
+void	init_txt_n(t_window *data, char *path);
+void	init_txt_w(t_window *data, char *path);
+t_texture	*get_txt(t_window *data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: cornguye <cornguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:59:40 by cornguye          #+#    #+#             */
-/*   Updated: 2024/04/23 12:46:51 by cornguye         ###   ########.fr       */
+/*   Updated: 2024/04/26 15:54:16 by cornguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	inter_check(double angle, double *inter, double *step, int is_horizon)
 	{
 		if (angle > 0 && angle < M_PI)
 		{
-			*inter += 30;
+			*inter += 32;
 			return (-1);
 		}
 		*step *= -1;
@@ -27,7 +27,7 @@ int	inter_check(double angle, double *inter, double *step, int is_horizon)
 	{
 		if (!(angle > M_PI / 2 && angle < 3 * M_PI / 2))
 		{
-			*inter += 30;
+			*inter += 32;
 			return (-1);
 		}
 		*step *= -1;
@@ -76,6 +76,7 @@ double	wall_hit_hori(t_window *data, double angle)
 		h_x += x_step;
 		h_y += y_step;
 	}
+	data->final_h_x = h_x;
 	return (sqrt(pow(h_x - data->data_player->posx, 2)
 			+ pow(h_y - data->data_player->posy, 2)));
 }
@@ -102,6 +103,7 @@ double	wall_hit_vert(t_window *data, double angle)
 		v_x += x_step;
 		v_y += y_step;
 	}
+	data->final_v_y = v_y;
 	return (sqrt(pow(v_x - data->data_player->posx, 2)
 			+ pow(v_y - data->data_player->posy, 2)));
 }
