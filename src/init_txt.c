@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_txt.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdaumont <kdaumont@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cornguye <cornguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 12:26:32 by cornguye          #+#    #+#             */
-/*   Updated: 2024/04/29 09:01:47 by kdaumont         ###   ########.fr       */
+/*   Updated: 2024/04/29 09:50:25 by cornguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@ void	init_txt_s(t_window *data, char *path)
 			&data_txt->width, &data_txt->height);
 	if (data_txt->img == NULL)
 	{
+		free_struct_map(data);
+		free(data_txt);
+		mlx_destroy_display(data->mlx);
+		free(data->mlx);
 		ft_putstr_fd("Error\nInvalid path to texture\n", 1);
 		exit(0);
 	}
@@ -38,6 +42,12 @@ void	init_txt_e(t_window *data, char *path)
 			&data_txt->width, &data_txt->height);
 	if (data_txt->img == NULL)
 	{
+		mlx_destroy_image(data->mlx, data->texture_s->img);
+		free(data->texture_s);
+		free_struct_map(data);
+		free(data_txt);
+		mlx_destroy_display(data->mlx);
+		free(data->mlx);
 		ft_putstr_fd("Error\nInvalid path to texture\n", 1);
 		exit(0);
 	}
@@ -55,6 +65,14 @@ void	init_txt_n(t_window *data, char *path)
 			&data_txt->width, &data_txt->height);
 	if (data_txt->img == NULL)
 	{
+		mlx_destroy_image(data->mlx, data->texture_s->img);
+		mlx_destroy_image(data->mlx, data->texture_e->img);
+		free(data->texture_s);
+		free(data->texture_e);
+		free_struct_map(data);
+		free(data_txt);
+		mlx_destroy_display(data->mlx);
+		free(data->mlx);
 		ft_putstr_fd("Error\nInvalid path to texture\n", 1);
 		exit(0);
 	}
@@ -72,6 +90,16 @@ void	init_txt_w(t_window *data, char *path)
 			&data_txt->width, &data_txt->height);
 	if (data_txt->img == NULL)
 	{
+		mlx_destroy_image(data->mlx, data->texture_s->img);
+		mlx_destroy_image(data->mlx, data->texture_e->img);
+		mlx_destroy_image(data->mlx, data->texture_n->img);
+		free(data->texture_s);
+		free(data->texture_e);
+		free(data->texture_n);
+		free_struct_map(data);
+		free(data_txt);
+		mlx_destroy_display(data->mlx);
+		free(data->mlx);
 		ft_putstr_fd("Error\nInvalid path to texture\n", 1);
 		exit(0);
 	}

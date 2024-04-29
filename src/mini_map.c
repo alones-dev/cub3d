@@ -6,7 +6,7 @@
 /*   By: cornguye <cornguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 12:03:54 by cornguye          #+#    #+#             */
-/*   Updated: 2024/04/27 17:39:30 by cornguye         ###   ########.fr       */
+/*   Updated: 2024/04/29 09:45:00 by cornguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,13 @@ void	my_mlx_pixel_put(t_window *data, int x, int y, int color)
 
 void	print_pixel(int x, int y, t_window *data, t_mini_map *mini_map)
 {
-	if (data->data_map->map[mini_map->compteur_x][mini_map->compteur_y] == ' '
+	int	len_line;
+
+	len_line = 0;
+	len_line = ft_strlen(data->data_map->map[mini_map->compteur_x]);
+	if (mini_map->compteur_y > len_line
+		|| data->data_map->map[mini_map->compteur_x]
+		[mini_map->compteur_y] == ' '
 		|| data->data_map->map[mini_map->compteur_x]
 		[mini_map->compteur_y] == '1')
 		my_mlx_pixel_put(data, x, y, mini_map->color_wall);

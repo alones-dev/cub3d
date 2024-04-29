@@ -6,7 +6,7 @@
 /*   By: cornguye <cornguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:53:08 by kdaumont          #+#    #+#             */
-/*   Updated: 2024/04/27 17:43:23 by cornguye         ###   ########.fr       */
+/*   Updated: 2024/04/29 10:20:37 by cornguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int	check_wall(t_map *map)
 		j = 0;
 		while (map->map[i][j])
 		{
-			if (map->map[i][j] == '0')
+			if (map->map[i][j] == '0' || is_in_set(map->map[i][j], "NSWE") == 1)
 			{
 				if (!check_edge(map, i, j))
 					return (0);

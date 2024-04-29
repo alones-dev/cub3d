@@ -6,7 +6,7 @@
 /*   By: cornguye <cornguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:37:16 by kdaumont          #+#    #+#             */
-/*   Updated: 2024/04/27 17:28:34 by cornguye         ###   ########.fr       */
+/*   Updated: 2024/04/29 10:17:33 by cornguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,13 @@ int	parse_info(t_map *map, char *str)
 	i = 0;
 	while (str[i] && str[i] == ' ')
 		i++;
-	if (ft_strcmpv2(str + i, "N", 1) == 0 || ft_strcmpv2(str + i, "NO", 2) == 0)
+	if (ft_strcmpv2(str + i, "NO", 2) == 0)
 		return (put_struct(map, str + i, 'N'), 1);
-	if (ft_strcmpv2(str + i, "S", 1) == 0 || ft_strcmpv2(str + i, "SO", 2) == 0)
+	if (ft_strcmpv2(str + i, "SO", 2) == 0)
 		return (put_struct(map, str + i, 'S'), 1);
-	if (ft_strcmpv2(str + i, "W", 1) == 0 || ft_strcmpv2(str + i, "WE", 2) == 0)
+	if (ft_strcmpv2(str + i, "WE", 2) == 0)
 		return (put_struct(map, str + i, 'W'), 1);
-	if (ft_strcmpv2(str + i, "E", 1) == 0 || ft_strcmpv2(str + i, "EA", 2) == 0)
+	if (ft_strcmpv2(str + i, "EA", 2) == 0)
 		return (put_struct(map, str + i, 'E'), 1);
 	if (ft_strcmpv2(str + i, "F", 1) == 0)
 		return (put_struct(map, str + i, 'F'), 1);

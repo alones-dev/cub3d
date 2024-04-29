@@ -6,7 +6,7 @@
 /*   By: cornguye <cornguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:40:03 by kdaumont          #+#    #+#             */
-/*   Updated: 2024/04/27 17:35:12 by cornguye         ###   ########.fr       */
+/*   Updated: 2024/04/29 09:38:04 by cornguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ char		*ft_strdup_stop_wspace(const char *s);
 /* utils2.c */
 int			close_win(t_window *data_window);
 void		remove_start(t_window *data_window);
+void		free_struct_map(t_window *data_window);
 
 /* movement.c */
 int			action_key(int keycode, t_window *data_window);

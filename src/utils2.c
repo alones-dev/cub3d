@@ -6,7 +6,7 @@
 /*   By: cornguye <cornguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 17:30:50 by cornguye          #+#    #+#             */
-/*   Updated: 2024/04/27 17:53:19 by cornguye         ###   ########.fr       */
+/*   Updated: 2024/04/29 09:49:33 by cornguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 void	free_double_tab(char **str)
 {
-	int	i = 0;
-	
+	int	i;
+
+	i = 0;
 	while (str[i])
 	{
 		free(str[i]);
@@ -24,7 +25,7 @@ void	free_double_tab(char **str)
 	free(str);
 }
 
-int	close_win(t_window *data_window)
+void	free_struct_map(t_window *data_window)
 {
 	free_double_tab(data_window->data_map->map);
 	free(data_window->data_map->ea);
@@ -33,6 +34,11 @@ int	close_win(t_window *data_window)
 	free(data_window->data_map->so);
 	free(data_window->data_map->c);
 	free(data_window->data_map->f);
+}
+
+int	close_win(t_window *data_window)
+{
+	free_struct_map(data_window);
 	mlx_destroy_image(data_window->mlx, data_window->texture_s->img);
 	mlx_destroy_image(data_window->mlx, data_window->texture_n->img);
 	mlx_destroy_image(data_window->mlx, data_window->texture_e->img);

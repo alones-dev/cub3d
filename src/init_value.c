@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_value.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdaumont <kdaumont@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cornguye <cornguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:36:48 by cornguye          #+#    #+#             */
-/*   Updated: 2024/04/29 08:59:33 by kdaumont         ###   ########.fr       */
+/*   Updated: 2024/04/29 10:01:40 by cornguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,8 @@
 void	init_value_window(t_window *data_window)
 {
 	data_window->h_map++;
-	data_window->show_map = 0;
 	data_window->size_case = 32;
-	data_window->last_x_mouse = data_window->taille_x / 2;
+	data_window->show_map = 0;
 }
 
 void	init_player(t_window *data_window)
@@ -41,12 +40,6 @@ void	init_player(t_window *data_window)
 
 void	init_texture(t_window *data, t_map *map)
 {
-	printf("%s|", map->so);
-
-	// init_txt_s(data, "./texture/test-resized.xpm");
-	// init_txt_e(data, "./texture/m2-resized-64.xpm");
-	// init_txt_n(data, "./texture/m3-resized-64.xpm");
-	// init_txt_w(data, "./texture/m4-resized-64.xpm");
 	init_txt_s(data, map->so);
 	init_txt_e(data, map->ea);
 	init_txt_n(data, map->no);
@@ -61,6 +54,7 @@ void	init_window(t_window *data_window)
 	data_window->mlx = mlx_init();
 	if (data_window->mlx == NULL)
 	{
+		free_struct_map(data_window);
 		ft_putstr_fd("Error\nmlx_init failed\n", 1);
 		exit(0);
 	}
@@ -76,6 +70,7 @@ void	init_window(t_window *data_window)
 	data_window->addr = mlx_get_data_addr(data_window->img,
 			&data_window->bits_per_pixel, &data_window->line_length,
 			&data_window->endian);
+	data_window->last_x_mouse = data_window->taille_x / 2;
 }
 
 int	init_all_value(t_window *data_window, t_map *map)
