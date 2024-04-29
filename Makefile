@@ -48,7 +48,6 @@ endef
 LIB 		:= $(strip $(LIB))
 
 define SRC :=
-	check_map.c
 	colors.c
 	main.c
 	map.c
@@ -63,8 +62,6 @@ define SRC :=
 	init_value.c
 	init_txt.c
 	check_map.c
-	color.c
-	map.c
 	utils_parsing.c
 endef
 SRC 		:= $(strip $(SRC))

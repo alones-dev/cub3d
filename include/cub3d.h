@@ -6,7 +6,7 @@
 /*   By: cornguye <cornguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:40:03 by kdaumont          #+#    #+#             */
-/*   Updated: 2024/04/29 10:29:07 by cornguye         ###   ########.fr       */
+/*   Updated: 2024/04/29 10:34:18 by cornguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,22 +107,7 @@ typedef struct s_mini_map
 	int	color_wall;
 }	t_mini_map;
 
-typedef struct s_map
-{
-	char	**map;
-	char	*no;
-	char	*so;
-	char	*we;
-	char	*ea;
-	char	*f;
-	char	*c;
-	int		floor[3];
-	int		ceiling[3];
-}			t_map;
-
 /* utils.c */
-<<<<<<< HEAD
-=======
 double		check_angle(double angle);
 int			unit_circle(double angle, char c);
 int			get_color_rgb(int r, int g, int b);
@@ -168,7 +153,6 @@ void		init_txt_w(t_window *data, char *path);
 t_texture	*get_txt(t_window *data);
 
 /* utils.c */
->>>>>>> ray_casting
 void		error_msg(char *str);
 int			is_cub_file(char *str, char *ext);
 int			is_in_set(char c, char *set);
@@ -176,22 +160,14 @@ void		free_struct(t_map *map);
 int			is_space(char c);
 
 /* parsing.c */
-<<<<<<< HEAD
-int			init_map(t_map *map, char *file);
-=======
 int			init_map(t_map *map, char *file, t_window *data);
->>>>>>> ray_casting
 
 /* map.c */
 void		free_array(char **array);
 int			alloc_map(t_map *map, char *file);
 
 /* check_map.c */
-<<<<<<< HEAD
-int			check_all(t_map *map);
-=======
 int			check_all(t_map *map, t_window *data);
->>>>>>> ray_casting
 
 /* colors.c */
 int			get_color(int r, int g, int b);
