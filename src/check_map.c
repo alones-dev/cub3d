@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdaumont <kdaumont@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cornguye <cornguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 11:53:08 by kdaumont          #+#    #+#             */
-/*   Updated: 2024/04/22 15:09:55 by kdaumont         ###   ########.fr       */
+/*   Updated: 2024/04/29 10:29:36 by cornguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,13 @@
 	1 = 1 player start
 	0 = 0 or more than 1 player start
 */
-int	check_elements(t_map *map)
+int	check_elements(t_map *map, t_window *data)
 {
 	int	i;
 	int	j;
 	int	count;
 
+	data->w_map = 0;
 	i = 0;
 	j = 0;
 	count = 0;
@@ -32,11 +33,12 @@ int	check_elements(t_map *map)
 		j = 0;
 		while (map->map[i][j])
 		{
-			if (map->map[i][j] == 'N' || map->map[i][j] == 'S'
-				|| map->map[i][j] == 'E' || map->map[i][j] == 'W')
-				count++;
+			count += set_start_value(data, i, j, map);
+			if (j > data->w_map)
+				data->w_map = j;
 			j++;
 		}
+		data->h_map = i;
 		i++;
 	}
 	if (count == 1)
@@ -115,7 +117,7 @@ int	check_wall(t_map *map)
 		j = 0;
 		while (map->map[i][j])
 		{
-			if (map->map[i][j] == '0')
+			if (map->map[i][j] == '0' || is_in_set(map->map[i][j], "NSWE") == 1)
 			{
 				if (!check_edge(map, i, j))
 					return (0);
@@ -133,9 +135,9 @@ int	check_wall(t_map *map)
 	1 = everything is ok
 	0 = something is wrong
 */
-int	check_all(t_map *map)
+int	check_all(t_map *map, t_window *data)
 {
-	if (check_elements(map) == 0)
+	if (check_elements(map, data) == 0)
 		return (error_msg("Map need 1 player start"), 0);
 	if (check_spaces(map) == 0)
 		return (error_msg("Empty line found in map"), 0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdaumont <kdaumont@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cornguye <cornguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:37:16 by kdaumont          #+#    #+#             */
-/*   Updated: 2024/04/23 14:28:12 by kdaumont         ###   ########.fr       */
+/*   Updated: 2024/04/29 10:30:26 by cornguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ void	put_struct(t_map *map, char *str, char state)
 	while (str[i] && (str[i] == ' ' || is_in_set(str[i], "NOSWEAFC") == 1))
 		i++;
 	if (state == 'N')
-		map->no = ft_strdup(str + i);
+		map->no = ft_strdup_stop_wspace(str + i);
 	if (state == 'S')
-		map->so = ft_strdup(str + i);
+		map->so = ft_strdup_stop_wspace(str + i);
 	if (state == 'W')
-		map->we = ft_strdup(str + i);
+		map->we = ft_strdup_stop_wspace(str + i);
 	if (state == 'E')
-		map->ea = ft_strdup(str + i);
+		map->ea = ft_strdup_stop_wspace(str + i);
 	if (state == 'F')
 		map->f = ft_strdup(str + i);
 	if (state == 'C')
@@ -52,13 +52,13 @@ int	parse_info(t_map *map, char *str)
 	i = 0;
 	while (str[i] && str[i] == ' ')
 		i++;
-	if (ft_strcmpv2(str + i, "N", 1) == 0 || ft_strcmpv2(str + i, "NO", 2) == 0)
+	if (ft_strcmpv2(str + i, "NO", 2) == 0)
 		return (put_struct(map, str + i, 'N'), 1);
-	if (ft_strcmpv2(str + i, "S", 1) == 0 || ft_strcmpv2(str + i, "SO", 2) == 0)
+	if (ft_strcmpv2(str + i, "SO", 2) == 0)
 		return (put_struct(map, str + i, 'S'), 1);
-	if (ft_strcmpv2(str + i, "W", 1) == 0 || ft_strcmpv2(str + i, "WE", 2) == 0)
+	if (ft_strcmpv2(str + i, "WE", 2) == 0)
 		return (put_struct(map, str + i, 'W'), 1);
-	if (ft_strcmpv2(str + i, "E", 1) == 0 || ft_strcmpv2(str + i, "EA", 2) == 0)
+	if (ft_strcmpv2(str + i, "EA", 2) == 0)
 		return (put_struct(map, str + i, 'E'), 1);
 	if (ft_strcmpv2(str + i, "F", 1) == 0)
 		return (put_struct(map, str + i, 'F'), 1);
@@ -106,7 +106,7 @@ int	parse_file(t_map *map, char *file)
 	1 = map is initialized
 	0 = map is not initialized
 */
-int	init_map(t_map *map, char *file)
+int	init_map(t_map *map, char *file, t_window *data)
 {
 	map->map = NULL;
 	map->no = NULL;
@@ -119,7 +119,7 @@ int	init_map(t_map *map, char *file)
 		return (error_msg("Bad informations amount"), 0);
 	if (!alloc_map(map, file))
 		return (0);
-	if (!check_all(map))
+	if (!check_all(map, data))
 		return (0);
 	if (!parse_color_f(map))
 		return (error_msg("Bad floor color"), 0);

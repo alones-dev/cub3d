@@ -53,7 +53,19 @@ define SRC :=
 	main.c
 	map.c
 	utils.c
+	utils2.c
 	parsing.c
+	movement.c
+	ray_cast.c
+	mini_map.c
+	put_element.c
+	init_mvt.c
+	init_value.c
+	init_txt.c
+	check_map.c
+	color.c
+	map.c
+	utils_parsing.c
 endef
 SRC 		:= $(strip $(SRC))
 
