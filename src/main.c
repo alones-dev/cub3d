@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cornguye <cornguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kdaumont <kdaumont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 09:17:18 by cornguye          #+#    #+#             */
-/*   Updated: 2024/04/27 17:54:28 by cornguye         ###   ########.fr       */
+/*   Updated: 2024/04/29 08:58:50 by kdaumont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	loop(void *st)
 	return (0);
 }
 
-int	main(int ac, char **av, char **env)
+int	main(int ac, char **av)
 {
 	t_window	data_window;
 	t_player	data_player;
@@ -53,8 +53,8 @@ int	main(int ac, char **av, char **env)
 	mlx_loop_hook(data_window.mlx, &loop, &data_window);
 	mlx_hook(data_window.win, KeyPress, KeyPressMask, action_key, &data_window);
 	mlx_key_hook(data_window.win, &key_released_map, &data_window);
-	mlx_hook(data_window.win, MotionNotify, PointerMotionMask,
-		mouse_hook, &data_window);
+	mlx_hook(data_window.win, MotionNotify, PointerMotionMask, mouse_hook,
+		&data_window);
 	mlx_hook(data_window.win, 17, 1L << 17, close_win, &data_window);
 	mlx_loop(data_window.mlx);
 	return (0);

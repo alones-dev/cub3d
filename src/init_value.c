@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_value.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cornguye <cornguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kdaumont <kdaumont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:36:48 by cornguye          #+#    #+#             */
-/*   Updated: 2024/04/27 17:52:02 by cornguye         ###   ########.fr       */
+/*   Updated: 2024/04/29 08:59:33 by kdaumont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,11 @@ void	init_window(t_window *data_window)
 
 	handler_size_srceen = 0.5;
 	data_window->mlx = mlx_init();
+	if (data_window->mlx == NULL)
+	{
+		ft_putstr_fd("Error\nmlx_init failed\n", 1);
+		exit(0);
+	}
 	init_texture(data_window, data_window->data_map);
 	mlx_get_screen_size(data_window->mlx, &data_window->size_screen_x,
 		&data_window->size_screen_y);
