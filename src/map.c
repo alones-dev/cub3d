@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cornguye <cornguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kdaumont <kdaumont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 22:51:58 by kdaumont          #+#    #+#             */
-/*   Updated: 2024/04/29 10:30:08 by cornguye         ###   ########.fr       */
+/*   Updated: 2024/04/29 12:38:58 by kdaumont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,10 @@ void	remove_spaces(t_map *map)
 	while (--i > 0 && (map->map[i][0] == '\n' || map->map[i][0] == '\0'))
 	{
 		if (map->map[i][0] == '\n' || map->map[i][0] == '\0')
+		{
+			free(map->map[i]);
 			map->map[i] = NULL;
+		}
 	}
 }
 
@@ -125,6 +128,7 @@ int	alloc_map(t_map *map, char *file)
 	size = parse_map(map, file, 0);
 	if (size == -1 || size == 0)
 		return (error_msg("Map invalid"), 0);
+	map->size_map = size;
 	map->map = malloc(sizeof(char *) * (size + 1));
 	if (!map->map)
 		return (0);

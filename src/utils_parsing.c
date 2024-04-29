@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cornguye <cornguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kdaumont <kdaumont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 10:26:39 by cornguye          #+#    #+#             */
-/*   Updated: 2024/04/27 17:03:50 by cornguye         ###   ########.fr       */
+/*   Updated: 2024/04/29 11:56:46 by kdaumont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	is_in_set(char c, char *set)
 void	free_struct(t_map *map)
 {
 	if (map->map)
-		free_array(map->map);
+		free_double_tab(map);
 	if (map->no)
 		free(map->no);
 	if (map->so)
