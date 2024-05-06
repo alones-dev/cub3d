@@ -63,6 +63,7 @@ define SRC :=
 	init_txt.c
 	check_map.c
 	utils_parsing.c
+	free_txt.c
 endef
 SRC 		:= $(strip $(SRC))
 

@@ -6,7 +6,7 @@
 /*   By: cornguye <cornguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 12:26:32 by cornguye          #+#    #+#             */
-/*   Updated: 2024/04/29 09:50:25 by cornguye         ###   ########.fr       */
+/*   Updated: 2024/05/06 09:26:16 by cornguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,12 @@ void	init_txt_s(t_window *data, char *path)
 	t_texture	*data_txt;
 
 	data_txt = malloc(sizeof(t_texture));
+	if (data_txt == NULL)
+		free_txt_1(data, data_txt);
 	data_txt->img = mlx_xpm_file_to_image(data->mlx, path,
 			&data_txt->width, &data_txt->height);
 	if (data_txt->img == NULL)
-	{
-		free_struct_map(data);
-		free(data_txt);
-		mlx_destroy_display(data->mlx);
-		free(data->mlx);
-		ft_putstr_fd("Error\nInvalid path to texture\n", 1);
-		exit(0);
-	}
+		free_txt_1(data, data_txt);
 	data_txt->addr = (int *)mlx_get_data_addr(data_txt->img,
 			&data_txt->bit_pixel, &data_txt->size_line, &data_txt->endian);
 	data->texture_s = data_txt;
@@ -38,19 +33,12 @@ void	init_txt_e(t_window *data, char *path)
 	t_texture	*data_txt;
 
 	data_txt = malloc(sizeof(t_texture));
+	if (data_txt == NULL)
+		free_txt_2(data, data_txt);
 	data_txt->img = mlx_xpm_file_to_image(data->mlx, path,
 			&data_txt->width, &data_txt->height);
 	if (data_txt->img == NULL)
-	{
-		mlx_destroy_image(data->mlx, data->texture_s->img);
-		free(data->texture_s);
-		free_struct_map(data);
-		free(data_txt);
-		mlx_destroy_display(data->mlx);
-		free(data->mlx);
-		ft_putstr_fd("Error\nInvalid path to texture\n", 1);
-		exit(0);
-	}
+		free_txt_2(data, data_txt);
 	data_txt->addr = (int *)mlx_get_data_addr(data_txt->img,
 			&data_txt->bit_pixel, &data_txt->size_line, &data_txt->endian);
 	data->texture_e = data_txt;
@@ -61,21 +49,12 @@ void	init_txt_n(t_window *data, char *path)
 	t_texture	*data_txt;
 
 	data_txt = malloc(sizeof(t_texture));
+	if (data_txt == NULL)
+		free_txt_3(data, data_txt);
 	data_txt->img = mlx_xpm_file_to_image(data->mlx, path,
 			&data_txt->width, &data_txt->height);
 	if (data_txt->img == NULL)
-	{
-		mlx_destroy_image(data->mlx, data->texture_s->img);
-		mlx_destroy_image(data->mlx, data->texture_e->img);
-		free(data->texture_s);
-		free(data->texture_e);
-		free_struct_map(data);
-		free(data_txt);
-		mlx_destroy_display(data->mlx);
-		free(data->mlx);
-		ft_putstr_fd("Error\nInvalid path to texture\n", 1);
-		exit(0);
-	}
+		free_txt_3(data, data_txt);
 	data_txt->addr = (int *)mlx_get_data_addr(data_txt->img,
 			&data_txt->bit_pixel, &data_txt->size_line, &data_txt->endian);
 	data->texture_n = data_txt;
@@ -86,23 +65,12 @@ void	init_txt_w(t_window *data, char *path)
 	t_texture	*data_txt;
 
 	data_txt = malloc(sizeof(t_texture));
+	if (data_txt == NULL)
+		free_txt_4(data, data_txt);
 	data_txt->img = mlx_xpm_file_to_image(data->mlx, path,
 			&data_txt->width, &data_txt->height);
 	if (data_txt->img == NULL)
-	{
-		mlx_destroy_image(data->mlx, data->texture_s->img);
-		mlx_destroy_image(data->mlx, data->texture_e->img);
-		mlx_destroy_image(data->mlx, data->texture_n->img);
-		free(data->texture_s);
-		free(data->texture_e);
-		free(data->texture_n);
-		free_struct_map(data);
-		free(data_txt);
-		mlx_destroy_display(data->mlx);
-		free(data->mlx);
-		ft_putstr_fd("Error\nInvalid path to texture\n", 1);
-		exit(0);
-	}
+		free_txt_4(data, data_txt);
 	data_txt->addr = (int *)mlx_get_data_addr(data_txt->img,
 			&data_txt->bit_pixel, &data_txt->size_line, &data_txt->endian);
 	data->texture_w = data_txt;

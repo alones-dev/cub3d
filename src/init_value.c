@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_value.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdaumont <kdaumont@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cornguye <cornguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:36:48 by cornguye          #+#    #+#             */
-/*   Updated: 2024/04/29 10:54:06 by kdaumont         ###   ########.fr       */
+/*   Updated: 2024/05/06 09:33:36 by cornguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ void	init_window(t_window *data_window)
 			data_window->taille_y, "cub3d");
 	data_window->img = mlx_new_image(data_window->mlx, data_window->taille_x,
 			data_window->taille_y);
+	if (data_window->img == NULL)
+		exit(0);
 	data_window->addr = mlx_get_data_addr(data_window->img,
 			&data_window->bits_per_pixel, &data_window->line_length,
 			&data_window->endian);

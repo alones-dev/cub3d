@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdaumont <kdaumont@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cornguye <cornguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:40:03 by kdaumont          #+#    #+#             */
-/*   Updated: 2024/04/29 11:57:07 by kdaumont         ###   ########.fr       */
+/*   Updated: 2024/05/06 09:27:00 by cornguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,5 +176,12 @@ int						check_all(t_map *map, t_window *data);
 int						get_color(int r, int g, int b);
 int						parse_color_f(t_map *map);
 int						parse_color_c(t_map *map);
+
+/* free_txt.c */
+
+void					free_txt_1(t_window *data, t_texture *data_txt);
+void					free_txt_2(t_window *data, t_texture *data_txt);
+void					free_txt_3(t_window *data, t_texture *data_txt);
+void					free_txt_4(t_window *data, t_texture *data_txt);
 
 #endif
