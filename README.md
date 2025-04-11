@@ -1,11 +1,10 @@
-# cub3D
-cub3D is a graphics project that aims to understand and use raycasting to recreate a Wolfenstein3D like in C.
+# **🎮 cub3D**
 
-It's a group project that was carried out by two people: I did the parsing part of the game parameters file (valid map, valid information, ...) and my mate did the raycasting part.
+Welcome to **cub3D**! 🚀 This is an exciting graphics project where I had the chance to dive into the world of **raycasting** and recreate a **Wolfenstein3D**-like game in **C**. The project was a collaborative effort between me and a teammate. I handled the **parsing** of the game parameters and map files, ensuring all the necessary details like **valid maps** and **information** were correctly processed. Meanwhile, my mate focused on the **raycasting** magic that brings the world to life! 💻✨
 
-This project use the MiniLibX, the graphical library of 42School.
+We built this game using **MiniLibX**, the graphical library at **42School**, to handle all of the drawing and rendering. Ready to explore a 3D world in a 2D space? Let's go! 🎮
 
-## Usage
+## 🔧 Usage
 **1. Clone the repository**
 ```
 git clone https://github.com/alones-dev/cub3d.git
